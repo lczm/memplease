@@ -1,12 +1,26 @@
-import { Button } from "@/components/ui/button";
-import MenubarMenus from "@/components/ui/menubar";
+import {
+  Menubar,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarSeparator,
+  MenubarShortcut,
+  MenubarTrigger,
+} from "@/components/ui/menubar";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 function App() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-svh space-y-4">
-      <MenubarMenus />
-      <Button>Click me</Button>
-    </div>
+    <Tabs defaultValue="account" className="w-[400px]">
+      <TabsList>
+        <TabsTrigger value="account">Account</TabsTrigger>
+        <TabsTrigger value="password">Password</TabsTrigger>
+      </TabsList>
+      <TabsContent value="account">
+        Make changes to your account here.
+      </TabsContent>
+      <TabsContent value="password">Change your password here.</TabsContent>
+    </Tabs>
   );
 }
 
