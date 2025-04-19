@@ -36,22 +36,19 @@ function App() {
   const parseQuestions = (inputText: string): QuestionItem[] => {
     if (!inputText.trim()) return [];
 
-    // Split the text by double line breaks to separate question-answer blocks
-    const blocks = inputText.split(/\n\s*\n/).filter((block) => block.trim());
+    // Parse the text into question-answer pairs based on the pattern:
+    // question, followed by "===", followed by an answer
+    const pattern = /([^\n]*)\n===\n([\s\S]*?)(?=\n[^\n]*\n===\n|$)/g;
 
-    return blocks.map((block) => {
-      const parts = block.split(/===/).map((part) => part.trim());
-      if (parts.length >= 2) {
-        return {
-          question: parts[0],
-          answer: parts.slice(1).join("==="), // In case there are multiple "===" in the answer
-        };
-      }
-      return {
-        question: block,
-        answer: "",
-      };
-    });
+    const questions: QuestionItem[] = [];
+    let match;
+    while ((match = pattern.exec(inputText)) !== null) {
+      const question = match[1].trim();
+      const answer = match[2].trim();
+      questions.push({ question, answer });
+    }
+
+    return questions;
   };
 
   const saveToLocalStorage = (textToSave: string) => {
@@ -120,13 +117,8 @@ function App() {
                           <code className="bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded">
                             \n\n.
                           </code>
-                          So there should not be any
-                          <code className="bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded">
-                            \n\n
-                          </code>
-                          within the answer block, only use when you want to
-                          move on to the next question. But you can use \n for
-                          readability. Inline and block math is allowed.
+                          But you can use \n for readability. Inline and block
+                          math is recommended to render math properly.
                         </p>
                         <p>A concrete example would look like:</p>
                         <div className="bg-slate-100 dark:bg-slate-800 p-3 rounded-md font-mono text-sm overflow-x-auto">

@@ -60,12 +60,12 @@ function Questions({
                 key={index}
                 className="border rounded-md p-4 bg-gray-50 dark:bg-gray-800"
               >
-                <p className="font-medium">Quebstion {index + 1}:</p>
-                <p className="ml-4 mt-1">
+                <p className="font-medium">Question {index + 1}:</p>
+                <p className="ml-4 mt-1 whitespace-pre-wrap">
                   <MathJax>{item.question}</MathJax>
                 </p>
                 <p className="font-medium mt-2">Answer:</p>
-                <p className="ml-4 mt-1">
+                <p className="ml-4 mt-1 whitespace-pre-wrap">
                   <MathJax>{item.answer}</MathJax>
                 </p>
               </div>

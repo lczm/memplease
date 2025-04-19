@@ -243,15 +243,15 @@ function Recall({ parsedQuestions }: RecallProps) {
         </div>
 
         {/* Content container with question and answer/prompt */}
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-full pt-10">
           {/* Question - aligned to top but centered horizontally */}
-          <div className="text-xl font-medium mt-2 mb-6 text-center">
+          <div className="text-xl font-medium mt-2 mb-6 text-center whitespace-pre-wrap">
             <MathJax>{currentCard.question}</MathJax>{" "}
           </div>
 
           {/* Answer (visible only in answer-rating mode) */}
           {mode === "answer-rating" && (
-            <div className="mb-6 p-4 w-full bg-white dark:bg-gray-700 rounded-md shadow-sm">
+            <div className="mb-6 p-4 w-full bg-white dark:bg-gray-700 rounded-md shadow-sm whitespace-pre-wrap">
               <p className="font-medium">Answer:</p>
               <p className="mt-2">
                 <MathJax>{currentCard.answer}</MathJax>
