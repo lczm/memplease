@@ -6,6 +6,12 @@ import { QuestionItem } from "./types";
 import { MathJaxContext } from "better-react-mathjax";
 import Questions from "./Questions";
 import Recall from "./Recall";
+import { Button } from "@/components/ui/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 const STORAGE_KEY = "recallData";
 
@@ -76,7 +82,66 @@ function App() {
                 <TabsTrigger value="recall">Recall</TabsTrigger>
                 <TabsTrigger value="questions">Questions</TabsTrigger>
               </TabsList>
-              <ModeToggle />
+              <div className="flex items-center gap-2">
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button variant="outline">How to use</Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-[450px] max-h-[500px] overflow-y-auto">
+                    <div className="space-y-4">
+                      <h4 className="font-medium text-lg">
+                        How to use this app
+                      </h4>
+                      <div className="space-y-2">
+                        <p>
+                          Generate your questions with your favourite LLM, just
+                          drop your content in, and ask it to generate n number
+                          of questions for you. The format that it should
+                          generate it in should look like:
+                        </p>
+                        <div className="bg-slate-100 dark:bg-slate-800 p-3 rounded-md font-mono text-sm overflow-x-auto">
+                          question
+                          <br />
+                          ===
+                          <br />
+                          answer
+                        </div>
+                        <p>
+                          where the question is above{" "}
+                          <code className="bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded">
+                            ===
+                          </code>{" "}
+                          and the answer is below{" "}
+                          <code className="bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded">
+                            ===
+                          </code>
+                          . Each pair of question and answer is split by an
+                          empty line. Inline and block math is allowed.
+                        </p>
+                        <p>A concrete example would look like:</p>
+                        <div className="bg-slate-100 dark:bg-slate-800 p-3 rounded-md font-mono text-sm overflow-x-auto">
+                          What is the formula for the area of a circle?
+                          <br />
+                          ===
+                          <br />
+                          The area of a circle is $A = \pi r^2$ where $r$ is the
+                          radius.
+                          <br />
+                          <br />
+                          What is the quadratic formula?
+                          <br />
+                          ===
+                          <br />
+                          {"$x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$"}
+                          <br />
+                          Where $x$ can be used later on.
+                        </div>
+                      </div>
+                    </div>
+                  </PopoverContent>
+                </Popover>
+                <ModeToggle />
+              </div>
             </div>
 
             {/* Recall tab + component */}
