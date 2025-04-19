@@ -6,6 +6,8 @@ interface QuestionsProps {
   setText: React.Dispatch<React.SetStateAction<string>>;
   parsedQuestions: QuestionItem[];
   setParsedQuestions: React.Dispatch<React.SetStateAction<QuestionItem[]>>;
+  parseQuestions: (inputText: string) => QuestionItem[];
+  saveToLocalStorage: (textToSave: string) => void;
 }
 
 function Questions({
@@ -13,34 +15,15 @@ function Questions({
   setText,
   parsedQuestions,
   setParsedQuestions,
+  parseQuestions,
+  saveToLocalStorage,
 }: QuestionsProps) {
-  // Take the input that the user puts in and parse it into a list of QuestionItem
-  const parseQuestions = (inputText: string): QuestionItem[] => {
-    if (!inputText.trim()) return [];
-
-    // Split the text by double line breaks to separate question-answer blocks
-    const blocks = inputText.split(/\n\s*\n/).filter((block) => block.trim());
-
-    return blocks.map((block) => {
-      const parts = block.split(/===/).map((part) => part.trim());
-      if (parts.length >= 2) {
-        return {
-          question: parts[0],
-          answer: parts.slice(1).join("==="), // In case there are multiple "===" in the answer
-        };
-      }
-      return {
-        question: block,
-        answer: "",
-      };
-    });
-  };
-
   // overwride the default submit behavior and instead parse the text
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setParsedQuestions(parseQuestions(text));
-    // TODO : Can save to local storage here in the future
+    // save the user text back up, this will be parsed back again later on
+    saveToLocalStorage(text);
   };
 
   return (

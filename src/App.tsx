@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ThemeProvider } from "./components/theme-provider";
 import { ModeToggle } from "./components/mode-toggle";
@@ -6,10 +6,47 @@ import { QuestionItem } from "./types";
 import Questions from "./Questions";
 import Recall from "./Recall";
 
+const STORAGE_KEY = "recallData";
+
 function App() {
   // Questions is a global state in app instead
   const [text, setText] = useState("");
   const [parsedQuestions, setParsedQuestions] = useState<QuestionItem[]>([]);
+
+  const parseQuestions = (inputText: string): QuestionItem[] => {
+    if (!inputText.trim()) return [];
+
+    // Split the text by double line breaks to separate question-answer blocks
+    const blocks = inputText.split(/\n\s*\n/).filter((block) => block.trim());
+
+    return blocks.map((block) => {
+      const parts = block.split(/===/).map((part) => part.trim());
+      if (parts.length >= 2) {
+        return {
+          question: parts[0],
+          answer: parts.slice(1).join("==="), // In case there are multiple "===" in the answer
+        };
+      }
+      return {
+        question: block,
+        answer: "",
+      };
+    });
+  };
+
+  const saveToLocalStorage = (textToSave: string) => {
+    localStorage.setItem(STORAGE_KEY, textToSave);
+  };
+
+  // Load data from local storage on component mount
+  useEffect(() => {
+    const savedData = localStorage.getItem(STORAGE_KEY);
+    if (savedData) {
+      const savedText = savedData;
+      setText(savedText);
+      setParsedQuestions(parseQuestions(savedText));
+    }
+  }, []);
 
   return (
     // Gives the light / dark theme
@@ -38,6 +75,8 @@ function App() {
               setText={setText}
               parsedQuestions={parsedQuestions}
               setParsedQuestions={setParsedQuestions}
+              parseQuestions={parseQuestions}
+              saveToLocalStorage={saveToLocalStorage}
             />
           </TabsContent>
         </Tabs>
