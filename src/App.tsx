@@ -73,7 +73,7 @@ function App() {
     <MathJaxContext config={mathJaxConfig}>
       <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
         {/* Main wrapper, gives max width and height padding */}
-        <div className="container mx-auto max-w-[75%] pt-[5%]">
+        <div className="container mx-auto max-w-[75%] pt-[5%] pb-[5%]">
           {/* Tabs, each tab goes to each component */}
           <Tabs defaultValue="recall" className="w-full">
             {/* Tabs content, the Recall, Questions, and Theme toggle */}
@@ -116,7 +116,9 @@ function App() {
                             ===
                           </code>
                           . Each pair of question and answer is split by an
-                          empty line. Inline and block math is allowed.
+                          empty line. So there should not be any empty lines
+                          within the answer block. Inline and block math is
+                          allowed.
                         </p>
                         <p>A concrete example would look like:</p>
                         <div className="bg-slate-100 dark:bg-slate-800 p-3 rounded-md font-mono text-sm overflow-x-auto">
