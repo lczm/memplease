@@ -90,7 +90,7 @@ function App() {
                   <PopoverContent className="w-[450px] max-h-[500px] overflow-y-auto">
                     <div className="space-y-4">
                       <h4 className="font-medium text-lg">
-                        How to use this app
+                        How to generate questions
                       </h4>
                       <div className="space-y-2">
                         <p>
@@ -116,9 +116,17 @@ function App() {
                             ===
                           </code>
                           . Each pair of question and answer is split by an
-                          empty line. So there should not be any empty lines
-                          within the answer block. Inline and block math is
-                          allowed.
+                          empty line.
+                          <code className="bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded">
+                            \n\n.
+                          </code>
+                          So there should not be any
+                          <code className="bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded">
+                            \n\n
+                          </code>
+                          within the answer block, only use when you want to
+                          move on to the next question. But you can use \n for
+                          readability. Inline and block math is allowed.
                         </p>
                         <p>A concrete example would look like:</p>
                         <div className="bg-slate-100 dark:bg-slate-800 p-3 rounded-md font-mono text-sm overflow-x-auto">
