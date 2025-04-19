@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { QuestionItem } from "./types";
 import { shuffle, findLastIndex, some, max, floor } from "lodash";
+import { MathJax } from "better-react-mathjax";
 
 // Take the question and answer and add few more properties to them
 type FlashCard = QuestionItem & {
@@ -245,14 +246,16 @@ function Recall({ parsedQuestions }: RecallProps) {
         <div className="flex flex-col h-full">
           {/* Question - aligned to top but centered horizontally */}
           <div className="text-xl font-medium mt-2 mb-6 text-center">
-            {currentCard.question}
+            <MathJax>{currentCard.question}</MathJax>{" "}
           </div>
 
           {/* Answer (visible only in answer-rating mode) */}
           {mode === "answer-rating" && (
             <div className="mb-6 p-4 w-full bg-white dark:bg-gray-700 rounded-md shadow-sm">
               <p className="font-medium">Answer:</p>
-              <p className="mt-2">{currentCard.answer}</p>
+              <p className="mt-2">
+                <MathJax>{currentCard.answer}</MathJax>
+              </p>
             </div>
           )}
 
