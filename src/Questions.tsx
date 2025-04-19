@@ -1,11 +1,12 @@
+import { Dispatch, SetStateAction } from "react";
 import { Textarea } from "./components/ui/textarea";
 import { QuestionItem } from "./types";
 
 interface QuestionsProps {
   text: string;
-  setText: React.Dispatch<React.SetStateAction<string>>;
+  setText: Dispatch<SetStateAction<string>>;
   parsedQuestions: QuestionItem[];
-  setParsedQuestions: React.Dispatch<React.SetStateAction<QuestionItem[]>>;
+  setParsedQuestions: Dispatch<SetStateAction<QuestionItem[]>>;
   parseQuestions: (inputText: string) => QuestionItem[];
   saveToLocalStorage: (textToSave: string) => void;
 }
