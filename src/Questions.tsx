@@ -62,11 +62,11 @@ function Questions({
               >
                 <p className="font-medium">Question {index + 1}:</p>
                 <p className="ml-4 mt-1 whitespace-pre-wrap">
-                  <MathJax>{item.question}</MathJax>
+                  <MathJax dynamic>{item.question}</MathJax>
                 </p>
                 <p className="font-medium mt-2">Answer:</p>
                 <p className="ml-4 mt-1 whitespace-pre-wrap">
-                  <MathJax>{item.answer}</MathJax>
+                  <MathJax dynamic>{item.answer}</MathJax>
                 </p>
               </div>
             ))}
